@@ -1,0 +1,15 @@
+services:
+  dv-tagger:
+    image: mrbuckwheet/dolbyvision-tagger:latest
+    container_name: dolbyvision-tagger
+    restart: unless-stopped
+    ports:
+      - "3636:3636"
+    environment:
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /path/to/your/movies:/Movies
+      - ./config:/app/config
+      - /etc/localtime:/etc/localtime:ro

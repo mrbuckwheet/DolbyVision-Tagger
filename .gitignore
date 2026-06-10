@@ -1,0 +1,24 @@
+# Local application configuration and sensitive data
+config/
+*.env
+
+# Runtime log streams
+*.log
+logs/
+/tmp/dv_tagger.lock
+
+# Python cache and bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+ENV/
+
+# IDE and System specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
