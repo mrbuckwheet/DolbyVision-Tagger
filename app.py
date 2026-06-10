@@ -433,7 +433,7 @@ HTML_TEMPLATE = """
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchLogs();
-            setInterval(fetchLogs, 2000);
+            setInterval(fetchLogs, 500);
         });
     </script>
 </body>
