@@ -38,8 +38,6 @@ services:
 ```
 ---
 
----
-
 ## ⚙️ Settings Explained
 
 The first time you start the container, it will create a settings file in your config folder. You can change these settings easily by opening the **Web UI** in your browser at `http://your-server-ip:3636`.
@@ -51,8 +49,6 @@ The first time you start the container, it will create a settings file in your c
 | `PLEX_LIBRARIES` | The exact name of your movie library in Plex (usually just `Movies`). |
 | `CRON_SCHEDULE` | How often the script runs automatically in the background. The default setting runs it twice a day (at 6:50 AM and 6:50 PM) to match MrBuckwheet's Kometa config which runs at 7am and 7pm daily. |
 | `GENERAL_LABEL` | Set to `True` if you want a generic `Dolby Vision` label added to the movie, on top of the specific profile label (like 'Dolby Vision' and `Dolby Vision Profile 5`). |
-
----
 
 ---
 
@@ -92,6 +88,28 @@ Use this if your actual files live deep inside a specific hard drive or data poo
 * **Compose Volume:** `- /data/Media/Movies:/Movies`
 * **Settings:** `PLEX_PATH_PREFIX=/media/Movies`
 
+---
+
+## 🌐 Docker Networking & Connecting to Plex
+
+Depending on how your Plex Media Server is deployed, you have two ways to configure your `PLEX SERVER URL` in the WebUI.
+
+### Method A: Using your Local LAN IP (Easiest)
+If Plex is running on a different machine, as a native NAS application, or in a separate standalone Docker network stack, use your host machine's actual local network IP address in the WebUI:
+```
+e.g., PLEX SERVER URL = http://192.168.1.50:32400
+```
+> ⚠️ **Note:** Do not use `http://127.0.0.1:32400` or `localhost` if Plex is inside a separate container environment, as the tagger will look inside its own isolated loopback network and fail to connect.
+
+### Method B: Sharing a Custom Docker Network (Recommended for Container Stacks)
+If your Plex container runs on an explicit, user-defined custom Docker bridge network (e.g., a custom subnet or an external proxy bridge), the tagger must join that exact network to resolve your Plex container by its name.
+
+1. Uncomment the `networks` blocks at the bottom of the provided `docker-compose.yml` file.
+2. Change all `PlexNetworkName` values to match the exact name of your existing custom media network.
+3. In the WebUI use the following URL to point directly to the container alias:
+```
+e.g., PLEX SERVER URL = http://plex:32400
+```
 ---
 
 ## 🤝 Need Poster Art Overlays?

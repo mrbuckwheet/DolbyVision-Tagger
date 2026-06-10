@@ -190,7 +190,7 @@ HTML_TEMPLATE = """
             <div class="grid">
                 <div class="form-group">
                     <label>Plex Server URL</label>
-                    <div class="field-desc">Enter the local IP address and port where your Plex server is running (default is http://127.0.0.1:32400).</div>
+                    <div class="field-desc">Enter the local IP address and port where your Plex server is running (default is http://plex:32400).</div>
                     <input type="text" name="PLEX_SERVER_URL" value="{{ config.get('PLEX_SERVER_URL', '') }}" placeholder="e.g., http://192.168.X.X:32400">
                 </div>
                 <div class="form-group">

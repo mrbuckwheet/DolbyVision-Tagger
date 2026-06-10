@@ -7,7 +7,7 @@ from datetime import datetime
 from plexapi.server import PlexServer
 
 PLEX_TOKEN = os.getenv('PLEX_TOKEN')
-PLEX_SERVER_URL = os.getenv('PLEX_SERVER_URL', 'http://127.0.0.1:32400')
+PLEX_SERVER_URL = os.getenv('PLEX_SERVER_URL', 'http://plex:32400')
 BINARIES_PATH = os.getenv('BINARIES_PATH', '/usr/local/bin')
 LIBRARIES = os.getenv('PLEX_LIBRARIES', 'Movies').split(',')
 GENERAL_LABEL = os.getenv('GENERAL_LABEL', 'True').lower() in ('true', '1', 't')
