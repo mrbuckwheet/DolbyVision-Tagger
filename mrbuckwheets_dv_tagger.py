@@ -21,7 +21,7 @@ def get_timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 if not PLEX_TOKEN:
-    print(f"[{get_timestamp()}] ❌ Error: PLEX_TOKEN variable is missing. Pass it via Docker environment.")
+    print(f"[{get_timestamp()}] ❌ Error: PLEX_TOKEN variable is missing. Pass it via Docker environment.", flush=True)
     sys.exit(1)
 
 def log_activity(message):
@@ -51,6 +51,8 @@ for library in LIBRARIES:
     log_activity(f"🎬 Scanning library section: {library}")
     try:
         videos = plex.library.section(library)
+        all_videos = videos.all()
+        log_activity(f"📦 Found {len(all_videos)} total movies to evaluate.")
     except Exception:
         log_activity(f"⚠️ Warning: Could not locate library [{library}]. Skipping...")
         try:
@@ -61,7 +63,7 @@ for library in LIBRARIES:
             pass
         continue
     
-    for video in videos.all():
+    for video in all_videos:
         if not video.locations:
             continue
             
@@ -70,6 +72,8 @@ for library in LIBRARIES:
         
         if not os.path.exists(local_path):
             continue
+
+        log_activity(f"🔍 Analyzing [{video.title}] for Dolby Vision profile metadata...")
 
         ffmpeg = [
             binaries / 'ffmpeg6', '-t', '120', '-i', f'{local_path}', 
@@ -84,7 +88,7 @@ for library in LIBRARIES:
             removed_any = False
             for l in video.labels:
                 if l.tag.lower().startswith('dolby vision'):
-                    log_activity(f"🗑️ Removing legacy DV label from [{video.title}]")
+                    log_activity(f"🗑️ Removing legacy/invalid DV label from [{video.title}]")
                     video.removeLabel(l.tag)
                     removed_any = True
                     fixes_applied += 1
@@ -111,7 +115,7 @@ for library in LIBRARIES:
             for l in video.labels:
                 if l.tag.lower().startswith('dolby vision p'):
                     if l.tag.lower() != label.lower():
-                        log_activity(f"🛡️ Safety Check: Removing mismatched DV label [{l.tag}] from [{video.title}]")
+                        log_activity(f"🛡️ Safety Check: Correcting mismatched DV label [{l.tag}] -> [{label}] on [{video.title}]")
                         video.removeLabel(l.tag)
                         removed_any = True
                         fixes_applied += 1
