@@ -35,6 +35,13 @@ services:
       - /path/to/your/movies:/Movies        # Change the left side to your actual movie folder
       - ./config:/app/config                # Where your settings and logs will be saved
       - /etc/localtime:/etc/localtime:ro
+    # 🌐 UNCOMMENT THE LINES BELOW IF PLEX IS ON A CUSTOM DOCKER NETWORK
+    # networks: 
+    #   - PlexNetworkName  # Replace 'PlexNetworkName' with the actual name of your existing custom network
+
+# networks: 
+#   PlexNetworkName:       # Replace 'PlexNetworkName' with the actual name of your existing custom network
+#     external: true
 ```
 ---
 
@@ -45,10 +52,10 @@ The first time you start the container, it will create a settings file in your c
 | Setting Name | What to Put Here |
 | :--- | :--- |
 | `PLEX_TOKEN` | **(Required)** Your secret Plex token. This allows the script to talk to your Plex server. |
-| `PLEX_SERVER_URL` | The local network address of your Plex server (usually `http://127.0.0.1:32400`). |
+| `PLEX_SERVER_URL` | The local network address of your Plex server (usually `http://192.168.1.XX:32400`). |
 | `PLEX_LIBRARIES` | The exact name of your movie library in Plex (usually just `Movies`). |
 | `CRON_SCHEDULE` | How often the script runs automatically in the background. The default setting runs it twice a day (at 6:50 AM and 6:50 PM) to match MrBuckwheet's Kometa config which runs at 7am and 7pm daily. |
-| `GENERAL_LABEL` | Set to `True` if you want a generic `Dolby Vision` label added to the movie, on top of the specific profile label (like 'Dolby Vision' and `Dolby Vision Profile 5`). |
+| `GENERAL_LABEL` | Set to `True` if you want a generic `Dolby Vision` label added to the movie, on top of the specific profile label ('Dolby Vision' and `Dolby Vision Profile 8`). |
 
 ---
 
@@ -117,6 +124,23 @@ e.g., PLEX SERVER URL = http://plex:32400
 Once your movies are tagged, head over to the main configuration project to learn how to turn those Plex labels into automatic poster borders, flags, and overlays:
 
 👉 **[Get the Companion Kometa Configurations](https://github.com/mrbuckwheet/kometa-config)**
+
+---
+
+## 👥 Credits & Acknowledgments
+
+This utility suite leverages the incredible work of the following open-source media tool developers and projects:
+
+* **[dovi_tagger.py](https://gist.github.com/cleverdevil/3517f75cca4f94bc4256a8f3ab007156)** – Developed by **cleverdevil**. The fundamental architecture layout and original script blueprint for looping through Plex sections and matching profile logic.
+* **[dovi_tool](https://github.com/quietvoid/dovi_tool)** – Created by **quietvoid**. This project relies on the core RPU extraction logic and parser designs to analyze Dolby Vision bitstreams.
+* **[python-plexapi](https://github.com/pushingkarmaorg/python-plexapi)** – Developed by **pkkid** and the PlexAPI community contributors. Used to authenticate, stream sections, and manipulate server metadata labels.
+* **[FFmpeg Project](https://ffmpeg.org)** – The foundation for demuxing, stream copying, and reading multi-layer media containers.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- markdownlint-disable MD033 -->
 <p align="center">
