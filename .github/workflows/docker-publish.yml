@@ -30,7 +30,7 @@ jobs:
         with:
           images: mrbuckwheet/dolbyvision-tagger
           tags: |
-            type=raw,value=latest,enable=${{ github.ref_name == 'main' || github.ref_name == 'master' }}
+            type=raw,value=latest,enable=${{ github.ref_name == 'main' || github.ref_name == 'master' || startsWith(github.ref, 'refs/tags/v') }}
             type=semver,pattern={{version}}
 
       - name: Build and Push Image
