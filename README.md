@@ -1,16 +1,21 @@
 # 🎬 MrBuckwheet's Dolby Vision Tagger
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mrbuckwheet/dolbyvision-tagger?color=blue)
+![Docker Architecture](https://img.shields.io/badge/architecture-amd64%20%7C%20arm64-success)
+![License](https://img.shields.io/github/license/mrbuckwheet/dolbyvision-tagger)
+
 Have you ever wanted your Plex server to show exactly which version of Dolby Vision your movies are using (like Profile 5 or Profile 8)? Plex doesn't show this by default, which makes it hard to automatically add those nice artwork overlays to your posters.
 
 This tool solves that. It automatically scans your movie files, figures out their exact Dolby Vision format, and adds a clean text label directly to that movie in Plex.
 
-It is designed to work perfectly alongside **[MrBuckwheet's Kometa Configurations](https://github.com/mrbuckwheet/kometa-config)** to automatically give your Plex library gorgeous, dynamic poster art overlays.
+It is designed to work perfectly alongside **[MrBuckwheet's Kometa Config](https://github.com/mrbuckwheet/kometa-config)** to automatically give your Plex library gorgeous, dynamic poster art overlays.
 
 ---
 
 ## ✨ Features
 
 * **Smart Scanning:** Looks inside your video files to find the exact Dolby Vision profile.
+* **Universal Architecture:** Runs natively on standard Intel/AMD systems (`amd64`) as well as ARM hardware (`arm64`) like Apple Silicon Macs and Raspberry Pi 4/5. No heavy emulation required.
 * **Easy Web Dashboard:** Open a simple web page (port `3636`) to change your settings, see live logs, or click a button to run a scan right now.
 * **Set It and Forget It:** Runs automatically in the background on a schedule so new movies get tagged without you doing a thing.
 * **Safe & Clean:** It doesn't modify your actual video files at all—it only adds text labels inside Plex.
@@ -43,6 +48,23 @@ services:
 #   PlexNetworkName:       # Replace 'PlexNetworkName' with the actual name of your existing custom network
 #     external: true
 ```
+---
+## 📸 Previews
+
+<p align="center">
+  <a href="https://github.com/user-attachments/assets/b1003407-dc01-4685-8e89-582002a572bf" target="_blank">
+    <img src="https://github.com/user-attachments/assets/b1003407-dc01-4685-8e89-582002a572bf" width="85%" alt="preview 1" />
+  </a>
+  <br /><br />
+  <a href="https://github.com/user-attachments/assets/26001ff6-b8bc-41e2-9c74-2ca10032a846" target="_blank">
+    <img src="https://github.com/user-attachments/assets/26001ff6-b8bc-41e2-9c74-2ca10032a846" width="85%" alt="preview 2" />
+  </a>
+  <br /><br />
+  <a href="https://github.com/user-attachments/assets/1ec6f4fb-0aad-4b24-9503-1b26f639b6a9" target="_blank">
+    <img src="https://github.com/user-attachments/assets/1ec6f4fb-0aad-4b24-9503-1b26f639b6a9" width="85%" alt="preview 3" />
+  </a>
+</p>
+
 ---
 
 ## ⚙️ Settings Explained
@@ -124,6 +146,8 @@ e.g., PLEX SERVER URL = http://plex:32400
 Once your movies are tagged, head over to the main configuration project to learn how to turn those Plex labels into automatic poster borders, flags, and overlays:
 
 👉 **[Get the Companion Kometa Configurations](https://github.com/mrbuckwheet/kometa-config)**
+
+![DV Collections](https://github.com/mrbuckwheet/Kometa-Config/blob/main/Overlay%20Preview/DV%20Collections.png)
 
 ---
 
